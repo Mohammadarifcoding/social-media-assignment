@@ -23,9 +23,6 @@ const Login = () => {
     console.log(login);
 
     if (login.status == 200) {
-      localStorage.setItem('token', login.data.accessToken);
-      localStorage.setItem('refreshToken', login.data.refreshToken);
-      localStorage.setItem('user', JSON.stringify(login.data.user));
       setAuth({
         user: login.data.user,
         token: login.data.accessToken,

@@ -4,7 +4,13 @@ import { IoHomeOutline } from 'react-icons/io5';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoAdd } from 'react-icons/io5';
 import { LuUserRound } from 'react-icons/lu';
+import { useAuth } from '../../../store';
+import { useNavigate } from 'react-router';
+import { FaUserCircle } from 'react-icons/fa';
 const Sidebar = () => {
+  const { auth, logout } = useAuth((state) => state);
+  const user = auth.user
+  const navigte = useNavigate()
   const routes = [
     {
       path: '/',
@@ -23,6 +29,11 @@ const Sidebar = () => {
     },
     { path: '/profile', name: 'Profile', icon: LuUserRound },
   ];
+
+  const confirmLogOut = ()=>{
+    logout()
+    navigte('/login')
+  }
   return (
     <aside className="hidden floating-navbar bg-white  border px-6 py-2 md:flex flex-col">
       <a href="./index.html" className="flex gap-2 items-center font-medium py-4 mb-8">
@@ -38,24 +49,23 @@ const Sidebar = () => {
             </a>
           </li>
         ))}
-      </ul>
-      <div className="flex  justify-between">
-        <a href="./profile.html">
-          <div className="flex items-center">
+      </ul> 
+      <div className="flex  justify-between pb-4 items-center">
+        <a href="/profile">
+          <div className="flex items-center gap-3"> { user?.avatar ?
             <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-              <img
-                src="./assets/avatar.jpg"
-                alt="User avatar"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="ml-2">
-              <span className="font-semibold text-sm">Saad Hasan</span>
-              <p className="text-xs text-gray-500  leading-0">@saadh393</p>
+             
+                <img src="/src/assets/users/user-1.png" alt="User avatar" className="w-full h-full object-cover" />
+             
+
+            </div>:<FaUserCircle  className='text-2xl'/>  }
+            <div className="">
+              <span className="font-semibold text-sm">{user?.name}</span>
+              <p className="text-xs text-gray-500  ">{user?.email}</p>
             </div>
           </div>
         </a>
-        <button title="logout" className>
+        <button type="button" className='cursor-pointer' title="logout" onClick={confirmLogOut}>
           <svg
             className="h-4 w-4"
             viewBox="0 0 24 24"
