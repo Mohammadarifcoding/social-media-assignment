@@ -1,10 +1,10 @@
 import React from 'react';
 import logo from '/src/assets/logo-2.svg';
-import Input from '../../../shared/Input/Input';
-import PasswordInput from '../../../shared/Input/PasswordInput';
 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
+import Input from '../../shared/Input/Input';
+import PasswordInput from '../../shared/Input/PasswordInput';
 
 const Register = () => {
   const {
@@ -15,7 +15,7 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
+    console.log('Form Submitted:', data);
     // ✅ Add your API call or further logic here
   };
 
@@ -37,7 +37,7 @@ const Register = () => {
           <Input
             type="text"
             placeholder="Email"
-            {...register("email", { required: "Email is required" })}
+            {...register('email', { required: 'Email is required' })}
             error={errors.email?.message}
           />
 
@@ -45,7 +45,7 @@ const Register = () => {
           <Input
             type="text"
             placeholder="Name"
-            {...register("name", { required: "Name is required" })}
+            {...register('name', { required: 'Name is required' })}
             error={errors.name?.message}
           />
 
@@ -53,9 +53,9 @@ const Register = () => {
           <PasswordInput
             name="password"
             placeholder="Password"
-            {...register("password", {
-              required: "Password is required",
-              minLength: { value: 6, message: "Min 6 characters" },
+            {...register('password', {
+              required: 'Password is required',
+              minLength: { value: 6, message: 'Min 6 characters' },
             })}
             error={errors.password?.message}
           />
@@ -64,10 +64,9 @@ const Register = () => {
           <PasswordInput
             name="confirmPassword"
             placeholder="Confirm Password"
-            {...register("confirmPassword", {
-              required: "Please confirm password",
-              validate: (value) =>
-                value === watch("password") || "Passwords do not match",
+            {...register('confirmPassword', {
+              required: 'Please confirm password',
+              validate: (value) => value === watch('password') || 'Passwords do not match',
             })}
             error={errors.confirmPassword?.message}
           />
@@ -84,7 +83,7 @@ const Register = () => {
       {/* Login Link */}
       <div className="bg-white p-6 border border-gray-300 text-center mb-4 rounded-md">
         <p className="text-sm">
-          Have an account?{" "}
+          Have an account?{' '}
           <Link to="/login" className="text-blue-500 font-semibold">
             Log in
           </Link>

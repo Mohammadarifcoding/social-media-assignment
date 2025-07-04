@@ -1,20 +1,47 @@
-import React from 'react';
-import logo from '/src/assets/logo.svg'
-import { Link } from 'react-router';
-import Input from '../../../shared/Input/Input';
-import PasswordInput from '../../../shared/Input/PasswordInput';import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import logo from '/src/assets/logo.svg';
+import { Link, useNavigate } from 'react-router';
+
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import Input from '../../shared/Input/Input';
+import PasswordInput from '../../shared/Input/PasswordInput';
+import { useAuth } from '../../../store';
+import SuccessLogin from '../../shared/Modal/SuccessLogin';
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const { setAuth } = useAuth((state) => state);
+  const navigate = useNavigate();
+  const onSubmit = async (data) => {
+    console.log('Login Submitted:', data);
+    const login = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`, data);
+    console.log(login);
 
-  const onSubmit = (data) => {
-    console.log("Login Submitted:", data);
+    if (login.status == 200) {
+      localStorage.setItem('token', login.data.accessToken);
+      localStorage.setItem('refreshToken', login.data.refreshToken);
+      localStorage.setItem('user', JSON.stringify(login.data.user));
+      setAuth({
+        user: login.data.user,
+        token: login.data.accessToken,
+        refreshToken: login.data.refreshToken,
+      });
+      setShowModal(true);
+      setTimeout(() => {
+        navigate('/');
+
+      }, 2000);
+    }
     // 🔐 Add your login API logic here
   };
-
+  if (showModal) {
+    return <SuccessLogin />;
+  }
   return (
     <div className="login-container rounded-md">
       {/* Logo */}
@@ -29,7 +56,7 @@ const Login = () => {
           <Input
             type="text"
             placeholder="Email"
-            {...register("email", { required: "Email is required" })}
+            {...register('email', { required: 'Email is required' })}
             error={errors.email?.message}
           />
 
@@ -37,7 +64,7 @@ const Login = () => {
           <PasswordInput
             name="password"
             placeholder="Password"
-            {...register("password", { required: "Password is required" })}
+            {...register('password', { required: 'Password is required' })}
             error={errors.password?.message}
           />
 

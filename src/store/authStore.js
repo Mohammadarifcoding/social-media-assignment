@@ -7,7 +7,7 @@ export const useAuthStore = createStore(
       user: null,
       token: null,
       refreshToken: null,
-      loading: true,
+      loading: false,
     },
     setAuth: (payload) => {
       set((state) => {
@@ -30,6 +30,11 @@ export const useAuthStore = createStore(
     setUser: (payload) => {
       set((state) => {
         state.auth.user = payload.user;
+      });
+    },
+    setLoading: (payload) => {
+      set((state) => {
+        state.auth.loading = payload;
       });
     },
   })),
