@@ -34,7 +34,6 @@ const Login = () => {
       setShowModal(true);
       setTimeout(() => {
         navigate('/');
-
       }, 2000);
     }
     // 🔐 Add your login API logic here

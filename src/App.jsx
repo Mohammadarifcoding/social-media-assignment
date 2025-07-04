@@ -11,32 +11,42 @@ import { useEffect } from 'react';
 import { useAuth } from './store';
 
 const App = () => {
-  const { setAuth,  setLoading } = useAuth((state) => state);
-   useEffect(()=>{
-     setLoading(true)
-    const token = localStorage.getItem('token')
-    if(token){
-      const user = JSON.parse(localStorage.getItem('user'))
-      const refreshToken = localStorage.getItem('refreshToken')
+  const { setAuth, setLoading } = useAuth((state) => state);
+  useEffect(() => {
+    setLoading(true);
+    const token = localStorage.getItem('token');
+    if (token) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const refreshToken = localStorage.getItem('refreshToken');
       setAuth({
         user,
         token,
-        refreshToken
-      })
+        refreshToken,
+      });
     }
-   },[])
-
+  }, []);
 
   return (
     <Routes>
       <Route element={<MainLayout />}>
-       
-<Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Route>
-        <Route element={<PrivateRoute ><MainLayout></MainLayout></PrivateRoute>}>
-          <Route path="/notification" element={<Notification />} /> 
-        </Route>
-      <Route element={<AuthRoute><AuthLayout /></AuthRoute>}>
+      <Route
+        element={
+          <PrivateRoute>
+            <MainLayout></MainLayout>
+          </PrivateRoute>
+        }
+      >
+        <Route path="/notification" element={<Notification />} />
+      </Route>
+      <Route
+        element={
+          <AuthRoute>
+            <AuthLayout />
+          </AuthRoute>
+        }
+      >
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Route>
