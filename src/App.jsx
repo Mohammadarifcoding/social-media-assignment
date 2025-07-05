@@ -7,24 +7,9 @@ import MainLayout from './components/Layout/MainLayout';
 import PrivateRoute from './Route/PrivateRoute';
 import Notification from './components/pages/Notification/Notification';
 import AuthRoute from './Route/AuthRoute';
-import { useEffect } from 'react';
-import { useAuth } from './store';
+
 
 const App = () => {
-  const { setAuth, setLoading } = useAuth((state) => state);
-  useEffect(() => {
-    setLoading(true);
-    const token = localStorage.getItem('token');
-    if (token) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const refreshToken = localStorage.getItem('refreshToken');
-      setAuth({
-        user,
-        token,
-        refreshToken,
-      });
-    }
-  }, []);
 
   return (
     <Routes>

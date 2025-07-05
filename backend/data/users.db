@@ -4,3 +4,6 @@
 {"name":"Sumit Saha","email":"sumit@learnwithsumit.com","password":"$2b$10$.iTFmOp7bq9/qVxIuVesOewwhLcypap4QHJpNYwZYx8HRs7uPAGj6","avatar":"uploads/a1f3ba38-f344-473b-a92c-709db7bf25d3.png","bio":"Father | Entrepreneur | Educator | Programming Enthusiast","createdAt":{"$$date":1749617404679},"_id":"imzy7nVeUHUHAZAn","website":"https://www.facebook.com/sumit.analyzen","gender":"male"}
 {"name":"John Doe","email":"john4@example.com","password":"$2b$10$iSi.wSVh1wyr4j385Ipsr.INxCqntHYZa274Iejv.p5GRqB6.xOl6","avatar":null,"bio":"","createdAt":{"$$date":1751646665736},"_id":"otfAtUzPiMcUfTTB"}
 {"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
+{"name":"John Doe","email":"johnf4@example.com","password":"$2b$10$1GDGhQNAj932A2LRH9ZIB.OnJlOONOWRfMZmoE28EZPpaNfTStSDa","avatar":null,"bio":"","createdAt":{"$$date":1751741345319},"_id":"aQUMNAhwbry5rOOR"}
+{"name":"Arif","email":"cepuwic@mailinator.com","password":"$2b$10$BfoDq7mBhEQiWjeMxxqZyOpkekqG5445OMKnl4g.Taojct7Kf0vMm","avatar":null,"bio":"","createdAt":{"$$date":1751741450783},"_id":"iHILUASJKWXNHBQD"}
+{"name":"Arif","email":"cepuwic1@mailinator.com","password":"$2b$10$jonKsAQv0cVzVc4qw0z7AORLT6EcMtd95QmpBGJ7yUB7ImCL9Y/p2","avatar":null,"bio":"","createdAt":{"$$date":1751741485939},"_id":"N2GKIrUDhfvKXKrh"}

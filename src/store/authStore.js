@@ -1,12 +1,13 @@
 import { createStore } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
+import { getLocalStorage } from '../utils/LocalStorage';
 
 export const useAuthStore = createStore(
   immer((set) => ({
     auth: {
-      user: null,
-      token: null,
-      refreshToken: null,
+      user: getLocalStorage('user') || null,
+      token: getLocalStorage('token') || null,
+      refreshToken: getLocalStorage('refreshToken') || null,
       loading: false,
     },
     setAuth: (payload) => {

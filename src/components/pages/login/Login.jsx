@@ -3,23 +3,25 @@ import logo from '/src/assets/logo.svg';
 import { Link, useNavigate } from 'react-router';
 
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import Input from '../../shared/Input/Input';
 import PasswordInput from '../../shared/Input/PasswordInput';
 import { useAuth } from '../../../store';
 import SuccessLogin from '../../shared/Modal/SuccessLogin';
+import usePublicAxios from '../../../hooks/usePublicAxios';
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const publicAxios = usePublicAxios()
   const [showModal, setShowModal] = useState(false);
   const { setAuth } = useAuth((state) => state);
   const navigate = useNavigate();
   const onSubmit = async (data) => {
-    console.log('Login Submitted:', data);
-    const login = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/auth/login`, data);
+    try{
+ console.log('Login Submitted:', data);
+    const login = await publicAxios.post(`/auth/login`, data);
     console.log(login);
 
     if (login.status == 200) {
@@ -33,6 +35,12 @@ const Login = () => {
         navigate('/');
       }, 2000);
     }
+    }
+
+    catch(err){
+      alert(err.response.data.message)
+    }
+   
     // 🔐 Add your login API logic here
   };
   if (showModal) {

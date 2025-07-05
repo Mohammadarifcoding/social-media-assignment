@@ -5,12 +5,12 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoAdd } from 'react-icons/io5';
 import { LuUserRound } from 'react-icons/lu';
 import { useAuth } from '../../../store';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { FaUserCircle } from 'react-icons/fa';
+import { MdLogin } from "react-icons/md";
 const Sidebar = () => {
   const { auth, logout } = useAuth((state) => state);
   const user = auth.user
-  const navigte = useNavigate()
   const routes = [
     {
       path: '/',
@@ -32,7 +32,6 @@ const Sidebar = () => {
 
   const confirmLogOut = ()=>{
     logout()
-    navigte('/login')
   }
   return (
     <aside className="hidden floating-navbar bg-white  border px-6 py-2 md:flex flex-col">
@@ -50,7 +49,8 @@ const Sidebar = () => {
           </li>
         ))}
       </ul> 
-      <div className="flex  justify-between pb-4 items-center">
+      {
+        auth.user ? <div className="flex  justify-between pb-4 items-center">
         <a href="/profile">
           <div className="flex items-center gap-3"> { user?.avatar ?
             <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
@@ -75,7 +75,15 @@ const Sidebar = () => {
             <path d="m8 0c-3.309 0-6 2.691-6 6s2.691 6 6 6 6-2.691 6-6-2.691-6-6-6zm0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm-3.5 4h6.5v2h-6.5c-1.379 0-2.5 1.122-2.5 2.5v5.5h-2v-5.5c0-2.481 2.019-4.5 4.5-4.5zm11.5 8h2v2h-2c-1.654 0-3-1.346-3-3v-6c0-1.654 1.346-3 3-3h2v2h-2c-.552 0-1 .449-1 1v6c0 .551.448 1 1 1zm8-3.941c0 .548-.24 1.07-.658 1.432l-2.681 2.362-1.322-1.5 1.535-1.354h-3.874v-2h3.74l-1.401-1.235 1.322-1.5 2.688 2.37c.411.355.651.877.651 1.425z" />
           </svg>
         </button>
-      </div>
+      </div>: <Link to="/login">
+  <button className="flex items-center gap-1 px-3 w-full justify-center py-2 rounded-full bg-indigo-600 text-white text-sm  hover:bg-indigo-700 transition">
+    <MdLogin className="text-lg"/>
+    <span>Sign In</span>
+  </button>
+</Link>
+
+      }
+      
     </aside>
   );
 };

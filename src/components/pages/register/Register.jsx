@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '/src/assets/logo-2.svg';
 
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Input from '../../shared/Input/Input';
 import PasswordInput from '../../shared/Input/PasswordInput';
+import usePublicAxios from '../../../hooks/usePublicAxios';
+import { useAuth } from '../../../store';
+import AccountCreate from '../../shared/Modal/AccountCreate';
 
 const Register = () => {
   const {
@@ -13,12 +16,40 @@ const Register = () => {
     watch,
     formState: { errors },
   } = useForm();
+   const publicAxios = usePublicAxios()
+     const [showModal, setShowModal] = useState(false);
+  const { setAuth } = useAuth((state) => state);
+  const navigate = useNavigate();
+const onSubmit = async (data) => {
+    try{
+ console.log('Register Submitted:', data);
+    const register = await publicAxios.post(`/auth/signup`, data);
+    console.log(register);
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
-    // ✅ Add your API call or further logic here
+    if (register.status == 201) {
+      setAuth({
+        user:register.data.user,
+        token: register.data.accessToken,
+        refreshToken: register.data.refreshToken,
+      });
+      setShowModal(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    }
+    }
+
+    catch(err){
+      alert(err.response.data.message)
+    }
+   
+    // 🔐 Add your login API logic here
   };
 
+
+  if (showModal) {
+    return <AccountCreate />;
+  }
   return (
     <div className="signup-container">
       {/* PhotoBooth Logo */}

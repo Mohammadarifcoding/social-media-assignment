@@ -426,3 +426,6 @@ body {
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+.avatar-empty {
+  @apply w-10 h-10 rounded-full bg-gray-100 border-2 border-dashed border-gray-300 hover:border-solid hover:border-indigo-500 hover:shadow-md transition;
+}
