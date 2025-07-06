@@ -1,9 +1,9 @@
-export const getLocalStorage = (key, fallback = null) => {
+export const getLocalStorage = ({ key, fallback = null, isObject = true }) => {
   try {
     const item = localStorage.getItem(key);
     if (!item) return fallback;
 
-    const parsed = JSON.parse(item);
+    const parsed = isObject ? JSON.parse(item) : item;
 
     return parsed ?? fallback;
   } catch (error) {
@@ -11,5 +11,7 @@ export const getLocalStorage = (key, fallback = null) => {
     return fallback;
   }
 };
+
+console.log('data', getLocalStorage({ key: 'token', isObject: false }));
 
 export const setLocalStorage = (key, value) => JSON.stringify(localStorage.setItem(key, value));

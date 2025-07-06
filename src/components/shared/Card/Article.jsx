@@ -26,6 +26,8 @@ const Article = ({post,seViewedCount}) => {
     };
   }, []);
 
+  console.log(post)
+
     return (
         <article ref={ref}  className="border-b pb-4 mb-4 max-w-[560px] mx-auto border rounded-md">
           {/* Post Header */}

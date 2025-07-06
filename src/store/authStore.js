@@ -5,9 +5,9 @@ import { getLocalStorage } from '../utils/LocalStorage';
 export const useAuthStore = createStore(
   immer((set) => ({
     auth: {
-      user: getLocalStorage('user') || null,
-      token: getLocalStorage('token') || null,
-      refreshToken: getLocalStorage('refreshToken') || null,
+      user: getLocalStorage({ key: 'user' }) || null,
+      token: getLocalStorage({ key: 'token', isObject: false }) || null,
+      refreshToken: getLocalStorage({ key: 'refreshToken', isObject: false }) || null,
       loading: false,
     },
     setAuth: (payload) => {

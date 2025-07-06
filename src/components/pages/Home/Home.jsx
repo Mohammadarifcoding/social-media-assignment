@@ -17,6 +17,8 @@ const Home = () => {
     error,}  = useGetPost(5)
   console.log(data) 
 
+  console.log(auth)
+
 
   const loaderRef = useRef()
   const [viewwedCount ,setViewedCount] = useState(0)
