@@ -6,7 +6,7 @@ import usePublicAxios from './usePublicAxios';
 const useGetPost = (limit) => {
     const axiosPublic = usePublicAxios()
 const fetchPosts = async ({pageParam = 1}) => {
-    const res = await axiosPublic.get('/posts/?' + `page=${pageParam}`)
+    const res = await axiosPublic.get('/posts/?' + `page=${pageParam}&limit=${limit}`)
     return res.data
   }
   const {
