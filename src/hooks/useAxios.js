@@ -10,7 +10,7 @@ const instance = axios.create({
 
 const useAxios = () => {
   const axiosPubic = usePublicAxios();
-  const { auth, setAuth } = useAuth((state) => state);
+  const { auth, setAuth, logout } = useAuth((state) => state);
 
   useEffect(() => {
     const requestIntercept = instance.interceptors.request.use(
@@ -28,8 +28,9 @@ const useAxios = () => {
       (res) => res,
       async (error) => {
         const originalRequest = error.config;
+        console.log(originalRequest);
 
-        if (error.response.status === 401 && !originalRequest._retry) {
+        if (error?.response?.status == 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
           try {
@@ -44,10 +45,11 @@ const useAxios = () => {
             });
             originalRequest.headers.Authorization = `Bearer ${token}`;
             return axiosPubic(originalRequest);
-          } catch (err) {
-            console.log(err);
+          } catch (error) {
+            logout();
           }
         }
+        return Promise.reject(error);
       },
     );
 

@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
+import { getTimeDetails } from '../../../utils/Time';
+import { Link } from 'react-router';
+import Avatar from '../avatar/Avatar';
 
 const Article = ({post,seViewedCount}) => {
 
 
     const ref = useRef()
-
+   const [showMore,setShowMore] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,36 +29,35 @@ const Article = ({post,seViewedCount}) => {
       if (ref.current) observer.unobserve(ref.current);
     };
   }, []);
-
-  console.log(post)
+  console.log(`${import.meta.env.VITE_SERVER_URL}/${post?.image}`)
 
     return (
         <article ref={ref}  className="border-b pb-4 mb-4 max-w-[560px] mx-auto border rounded-md">
           {/* Post Header */}
           <div className="flex items-center p-3">
-            <a
-              href="./profile.html"
-              className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center text-white text-xs"
-            >
-              <img src="./assets/users/user-3.png" className="w-full h-full object-cover" />
-            </a>
+            <Link to={`/profile/${post?.user?._id}`}> <Avatar avatar={post?.user?.avatar}/>
+            </Link>
+          
             <div className="ml-2">
-              <a href="./profile.html" className="font-semibold text-sm">
+              <Link to={`/profile/${post?.user?._id}`} className="font-semibold text-sm">
                 Sumit Saha
-              </a>
-              <span className="text-gray-500 text-xs"> • 6m</span>
+              </Link>
+              <span className="text-gray-500 text-xs"> • {getTimeDetails(post?.createdAt)}</span>
             </div>
           </div>
           {/* Post Image */}  
-          <div className="relative">
-            <a href="./post-details.html">
+          {
+            post?.image && <div className="relative">
+            <Link to={`/post-details/${post?._id}`}>
               <img
-                src="./assets/articles/post-1.jpg"
+                src={`${import.meta.env.VITE_SERVER_URL}/${post?.image}`}
                 alt="Post image"
                 className="w-full object-cover max-h-[1000px]"
               />
-            </a>
+            </Link>
           </div>
+          }
+          
           {/* Post Actions */}
           <div className="flex justify-between p-3">
             <div className="flex space-x-4">
@@ -130,23 +133,33 @@ const Article = ({post,seViewedCount}) => {
                 />
               </div>
               <p className="text-sm ml-2">
-                <span className="font-semibold">126 likes</span>
+                <span className="font-semibold">{post?.likes.length} likes</span>
               </p>
             </div>
           </div>
           {/* Caption */}
           <div className="px-3 mt-2">
             <p className="text-sm">
-              <span className="font-semibold">{post?.caption}</span>
-              <span className="caption-text"> #AD</span>
-              <span className="text-gray-500">... </span>
-              <button className="text-gray-500 text-sm">more</button>
+              {
+                showMore && <span className="font-semibold">{post?.caption}{" "}</span>
+              }
+              {
+                !showMore && <span className="font-semibold">{post?.caption?.length < 200 ? post?.caption:  post?.caption?.slice(0, 150)}</span>
+              }
+              
+              {
+               post?.caption?.length > 200 &&<button onClick={() => setShowMore(!showMore)} className="text-gray-500 text-sm">{showMore ? ' show less...' : '..show more'}</button>
+              }
+              
             </p>
           </div>
           {/* Comments */}
-          <div className="px-3 mt-1">
-            <button className="text-gray-500 text-sm">View all 2 comments</button>
+          {
+            post?.commentsCount > 0 && <div className="px-3 mt-1">
+            <button className="text-gray-500 text-sm">View all {post?.commentsCount} comments</button>
           </div>
+          }
+          
           {/* Add Comment */}
           <div className="px-3 mt-2 flex justify-between items-center">
             <input

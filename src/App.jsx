@@ -7,6 +7,7 @@ import MainLayout from './components/Layout/MainLayout';
 import PrivateRoute from './Route/PrivateRoute';
 import Notification from './components/pages/Notification/Notification';
 import AuthRoute from './Route/AuthRoute';
+import PostDetails from './components/pages/post-details/PostDetails';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         }
       >
         <Route path="/notification" element={<Notification />} />
+        <Route path="/post-details/:id" element={<PostDetails />} />
       </Route>
       <Route
         element={

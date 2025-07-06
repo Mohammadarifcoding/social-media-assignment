@@ -5,9 +5,10 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoAdd } from 'react-icons/io5';
 import { LuUserRound } from 'react-icons/lu';
 import { useAuth } from '../../../store';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { FaUserCircle } from 'react-icons/fa';
 import { MdLogin } from "react-icons/md";
+import Avatar from '../avatar/Avatar';
 const Sidebar = () => {
   const { auth, logout } = useAuth((state) => state);
   const user = auth.user
@@ -51,14 +52,9 @@ const Sidebar = () => {
       </ul> 
       {
         auth.user ? <div className="flex  justify-between pb-4 items-center">
-        <a href="/profile">
-          <div className="flex items-center gap-3"> { user?.avatar ?
-            <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300">
-             
-                <img src="/src/assets/users/user-1.png" alt="User avatar" className="w-full h-full object-cover" />
-             
-
-            </div>:<FaUserCircle  className='text-2xl'/>  }
+        <a href={`/profile/${user?._id}`}>
+          <div className="flex items-center gap-3">
+            <Avatar avatar={user?.avatar}/>
             <div className="">
               <span className="font-semibold text-sm">{user?.name}</span>
               <p className="text-xs text-gray-500  ">{user?.email}</p>

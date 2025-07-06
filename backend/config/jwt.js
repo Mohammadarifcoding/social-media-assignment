@@ -1,13 +1,13 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 // In a production environment, this would be stored in environment variables
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 // Expire in 2 minutes for testing purposes
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "2m";
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '2h';
 
 // Refresh token configuration
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "your-refresh-secret-key";
-const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || "20m";
+const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || 'your-refresh-secret-key';
+const REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || '2d';
 
 /**
  * Generate a JWT access token for a user
@@ -21,7 +21,7 @@ const generateAccessToken = (user) => {
       email: user.email,
     },
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: JWT_EXPIRES_IN },
   );
 };
 
@@ -37,7 +37,7 @@ const generateRefreshToken = (user) => {
       email: user.email,
     },
     REFRESH_TOKEN_SECRET,
-    { expiresIn: REFRESH_TOKEN_EXPIRES_IN }
+    { expiresIn: REFRESH_TOKEN_EXPIRES_IN },
   );
 };
 
